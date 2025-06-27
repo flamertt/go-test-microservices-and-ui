@@ -1,0 +1,262 @@
+/* AuthorDetailPage Styles */
+.author-detail-page {
+  padding: 24px;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.author-back-button {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  border: 1px solid #1976d2;
+  border-radius: 8px;
+  background: transparent;
+  color: #1976d2;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.author-back-button:hover {
+  background: #1976d2;
+  color: white;
+}
+
+.author-detail-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .author-detail-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.author-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.author-info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.author-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.author-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.author-title-section h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 16px 0;
+}
+
+.author-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.author-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.author-chip.primary {
+  background: rgba(25, 118, 210, 0.12);
+  color: #1976d2;
+  border: 1px solid rgba(25, 118, 210, 0.3);
+}
+
+.author-chip.secondary {
+  background: rgba(220, 0, 78, 0.12);
+  color: #dc004e;
+  border: 1px solid rgba(220, 0, 78, 0.3);
+}
+
+.author-divider {
+  border: none;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 24px 0;
+}
+
+.author-bio-section h6 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px 0;
+}
+
+.author-bio-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #666;
+  margin: 0 0 16px 0;
+}
+
+.author-books-section h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 24px 0;
+}
+
+.author-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.no-books-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.no-books-card h6 {
+  font-size: 1.25rem;
+  color: #666;
+  margin: 0;
+}
+
+.author-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-info-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 20px;
+}
+
+.author-info-panel h6 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 24px 0;
+}
+
+.author-info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.author-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-info-label {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.author-info-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.author-info-value.large {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.author-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.author-btn {
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.author-btn.primary {
+  background: #1976d2;
+  color: white;
+}
+
+.author-btn.primary:hover {
+  background: #1565c0;
+}
+
+.author-btn.outlined {
+  background: transparent;
+  border: 1px solid #1976d2;
+  color: #1976d2;
+}
+
+.author-btn.outlined:hover {
+  background: #1976d2;
+  color: white;
+}
+
+/* Error states */
+.author-error-container {
+  padding: 24px;
+}
+
+.author-error-back-button {
+  margin-bottom: 16px;
+} 

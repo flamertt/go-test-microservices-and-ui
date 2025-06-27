@@ -1,0 +1,422 @@
+.authors-page {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  min-height: 100vh;
+}
+
+.authors-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 16px 0;
+}
+
+.authors-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  text-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+}
+
+.authors-subtitle {
+  font-size: 1rem;
+  color: #546e7a;
+  line-height: 1.4;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.authors-search {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(46, 125, 50, 0.1);
+  border: 2px solid #e8f5e8;
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .search-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.search-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 8px;
+}
+
+.author-search-input {
+  padding: 14px 16px;
+  border: 2px solid #e8f5e8;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fafffe;
+}
+
+.author-search-input:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.search-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-search {
+  background: linear-gradient(135deg, #2e7d32, #388e3c);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-search:hover {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+}
+
+.btn-reset {
+  background: white;
+  color: #2e7d32;
+  border: 2px solid #e8f5e8;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reset:hover {
+  background: #e8f5e8;
+  border-color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+.authors-loading {
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.authors-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e8f5e8;
+  border-top: 4px solid #2e7d32;
+  border-radius: 50%;
+  animation: authorSpin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes authorSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.authors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* BookCard Uyumlu Author Kartları */
+.author-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  border: 1px solid #e8f5e8;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.author-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(46, 125, 50, 0.2);
+}
+
+.author-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #2e7d32, #66bb6a, #81c784);
+}
+
+.author-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.author-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.author-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2e7d32, #66bb6a) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Daha güçlü kurallar author avatar için */
+.authors-page .author-avatar,
+.author-card .author-avatar {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a) !important;
+  color: white !important;
+}
+
+.author-avatar::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  min-height: 2.6rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.author-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.author-actions {
+  padding-top: 16px;
+  border-top: 2px solid #e8f5e8;
+  margin-top: auto;
+}
+
+.author-view-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #2e7d32, #388e3c);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.author-view-btn:hover {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+}
+
+.authors-empty {
+  text-align: center;
+  padding: 80px 32px;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  border-radius: 20px;
+  border: 2px dashed #c8e6c9;
+  margin: 32px 0;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #2e7d32;
+}
+
+.authors-empty-title {
+  font-size: 1.5rem;
+  color: #2e7d32;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.authors-empty-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+
+.authors-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0;
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(46, 125, 50, 0.1);
+  border: 2px solid #e8f5e8;
+}
+
+.pagination-info-authors {
+  font-size: 0.875rem;
+  color: #2e7d32;
+  text-align: center;
+  margin: 0 20px;
+  font-weight: 600;
+}
+
+.pagination-btn {
+  background: white;
+  border: 2px solid #e8f5e8;
+  color: #2e7d32;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #2e7d32;
+  color: white;
+  border-color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.page-numbers-authors {
+  display: flex;
+  gap: 8px;
+}
+
+.page-num {
+  padding: 10px 14px;
+  border: 2px solid #e8f5e8;
+  background: white;
+  color: #2e7d32;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  min-width: 44px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.page-num:hover {
+  background: #e8f5e8;
+  border-color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+.page-num.active {
+  background: #2e7d32;
+  color: white;
+  border-color: #2e7d32;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+}
+
+.search-icon, .refresh-icon, .person-icon {
+  width: 18px;
+  height: 18px;
+  fill: #2e7d32;
+}
+
+/* Yazar sayfası için tüm iconları yeşil yapma */
+.authors-page .search-icon,
+.authors-page .refresh-icon, 
+.authors-page .person-icon,
+.authors-page svg {
+  fill: #2e7d32 !important;
+  color: #2e7d32 !important;
+} 

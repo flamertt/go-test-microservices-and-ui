@@ -1,0 +1,173 @@
+
+# ===============================================
+# 🔐 ENVIRONMENT & SECRETS
+# ===============================================
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+*.env
+
+# ===============================================
+# 📊 LOGS & RUNTIME
+# ===============================================
+logs/
+*.log
+pids/
+*.pid
+*.pid.lock
+
+# ===============================================
+# 🔧 BUILD & DEPENDENCIES
+# ===============================================
+# Go
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Node.js (for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ===============================================
+# 🐳 CONTAINERIZATION
+# ===============================================
+.docker/
+docker-compose.override.yml
+.dockerignore
+
+# ===============================================
+# ☁️ CLOUD & DEPLOYMENT
+# ===============================================
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Kubernetes
+*.yaml.bak
+kustomization.yaml.bak
+
+# ===============================================
+# 🔍 DEVELOPMENT & TESTING
+# ===============================================
+# Coverage
+*.cover
+*.coverprofile
+coverage.txt
+coverage.html
+
+# Testing
+test-results/
+*.test.json
+
+# ===============================================
+# 🖥️ EDITORS & IDEs
+# ===============================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# GoLand / IntelliJ
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ===============================================
+# 🍎 MACOS
+# ===============================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# ===============================================
+# 🐧 LINUX
+# ===============================================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ===============================================
+# 🪟 WINDOWS
+# ===============================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ===============================================
+# 📁 TEMPORARY FILES
+# ===============================================
+tmp/
+temp/
+*.tmp
+*.temp
+*.cache
+
+# ===============================================
+# 🔧 CONFIGURATION BACKUPS
+# ===============================================
+*.bak
+*.backup
+*.old
+config.local.*
+
+# ===============================================
+# 📊 MONITORING & METRICS
+# ===============================================
+metrics/
+prometheus/
+grafana/data/
+
+# ===============================================
+# 🗄️ DATABASE
+# ===============================================
+*.db
+*.sqlite
+*.sqlite3
+postgres-data/
+mysql-data/
+
+# ===============================================
+# 🔒 SECURITY
+# ===============================================
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.jks
+secrets/
+private/ 
