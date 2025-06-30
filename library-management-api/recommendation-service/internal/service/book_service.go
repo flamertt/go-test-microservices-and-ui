@@ -25,17 +25,17 @@ func NewBookService(baseURL string) *BookService {
 }
 
 func (s *BookService) GetAllBooks(pageSize int) ([]model.Book, error) {
-	url := fmt.Sprintf("%s/books?page_size=%d", s.baseURL, pageSize)
+	url := fmt.Sprintf("%s/api/books?page_size=%d", s.baseURL, pageSize)
 	return s.getBooks(url)
 }
 
 func (s *BookService) GetBooksByCategory(category string, pageSize int) ([]model.Book, error) {
-	url := fmt.Sprintf("%s/books/category/%s?page_size=%d", s.baseURL, category, pageSize)
+	url := fmt.Sprintf("%s/api/books/category/%s?page_size=%d", s.baseURL, category, pageSize)
 	return s.getBooks(url)
 }
 
 func (s *BookService) GetBooksByAuthor(author string, pageSize int) ([]model.Book, error) {
-	url := fmt.Sprintf("%s/books/author/%s?page_size=%d", s.baseURL, author, pageSize)
+	url := fmt.Sprintf("%s/api/books/author/%s?page_size=%d", s.baseURL, author, pageSize)
 	return s.getBooks(url)
 }
 

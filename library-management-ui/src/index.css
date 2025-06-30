@@ -59,9 +59,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-/* App Container */
-.app-container {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}

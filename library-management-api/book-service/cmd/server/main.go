@@ -49,25 +49,28 @@ func main() {
 		})
 	})
 
-	// API endpoint'leri -    handler'ları kullan
-	r.GET("/books", bookHandler.GetBooks)
-	r.GET("/books/:id", bookHandler.GetEnrichedBookByID) // Default olarak enriched döner
-	r.GET("/books/simple/:id", bookHandler.GetBookByID)  // Sadece kitap bilgisi
-	r.GET("/books/author/:authorName", bookHandler.GetBooksByAuthor)
-	r.GET("/books/category/:categoryName", bookHandler.GetBooksByCategory)
-	r.GET("/books/enriched", bookHandler.GetEnrichedBooks)
+	// API endpoint'leri - diğer servislerle tutarlılık için /api prefix'i kullan
+	apiRoutes := r.Group("/api")
+	{
+		apiRoutes.GET("/books", bookHandler.GetBooks)
+		apiRoutes.GET("/books/:id", bookHandler.GetEnrichedBookByID) // Default olarak enriched döner
+		apiRoutes.GET("/books/simple/:id", bookHandler.GetBookByID)  // Sadece kitap bilgisi
+		apiRoutes.GET("/books/author/:authorName", bookHandler.GetBooksByAuthor)
+		apiRoutes.GET("/books/category/:categoryName", bookHandler.GetBooksByCategory)
+		apiRoutes.GET("/books/enriched", bookHandler.GetEnrichedBooks)
+	}
 
 	// Servisi başlat
 	serverAddr := cfg.GetServerAddress()
 	log.Printf("Book service %s adresinde başlatılıyor...", serverAddr)
 	log.Println("🔗    Endpoints:")
-	log.Println("  📚 GET /books                     - Sayfalı kitap listesi")
-	log.Println("  📚 GET /books/:id                 - Zenginleştirilmiş kitap (yazar bilgisi ile)")
-	log.Println("  📚 GET /books/simple/:id          - Sadece kitap bilgisi")
-	log.Println("  📚 GET /books/author/:authorName  - Yazar kitapları")
-	log.Println("  📚 GET /books/category/:category  - Kategori kitapları")
-	log.Println("  📚 GET /books/enriched            - Zenginleştirilmiş kitap listesi")
-	log.Println("  🩺 GET /health                    - Health check")
+	log.Println("  📚 GET /api/books                     - Sayfalı kitap listesi")
+	log.Println("  📚 GET /api/books/:id                 - Zenginleştirilmiş kitap (yazar bilgisi ile)")
+	log.Println("  📚 GET /api/books/simple/:id          - Sadece kitap bilgisi")
+	log.Println("  📚 GET /api/books/author/:authorName  - Yazar kitapları")
+	log.Println("  📚 GET /api/books/category/:category  - Kategori kitapları")
+	log.Println("  📚 GET /api/books/enriched            - Zenginleştirilmiş kitap listesi")
+	log.Println("  🩺 GET /health                       - Health check")
 	
 	if err := r.Run(serverAddr); err != nil {
 		log.Fatal("Server başlatılamadı:", err)

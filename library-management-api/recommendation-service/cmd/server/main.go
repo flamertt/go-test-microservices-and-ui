@@ -37,13 +37,13 @@ func main() {
 	// Health check
 	router.GET("/health", h.HealthCheck)
 
-	// API routes
-	v1 := router.Group("/api/v1")
+	// API routes - diğer servislerle tutarlılık için /api prefix'i kullan
+	apiRoutes := router.Group("/api")
 	{
-		v1.GET("/recommendations", h.GetRecommendations)
-		v1.GET("/recommendations/by-category", h.GetRecommendationsByCategory)
-		v1.GET("/recommendations/by-author", h.GetRecommendationsByAuthor)
-		v1.GET("/recommendations/trending", h.GetTrendingRecommendations)
+		apiRoutes.GET("/recommendations", h.GetRecommendations)
+		apiRoutes.GET("/recommendations/by-category", h.GetRecommendationsByCategory)
+		apiRoutes.GET("/recommendations/by-author", h.GetRecommendationsByAuthor)
+		apiRoutes.GET("/recommendations/trending", h.GetTrendingRecommendations)
 	}
 
 	// Start server

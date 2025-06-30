@@ -49,21 +49,24 @@ func main() {
 		})
 	})
 
-	// API endpoint'leri -    handler'ları kullan
-	r.GET("/genres", genreHandler.GetGenres)
-	r.GET("/genres/:id", genreHandler.GetGenreByID)
-	r.GET("/genres/search", genreHandler.SearchGenres)
-	r.GET("/genres/detail/:name", genreHandler.GetGenreDetailByName)
+	// API endpoint'leri - diğer servislerle tutarlılık için /api prefix'i kullan
+	apiRoutes := r.Group("/api")
+	{
+		apiRoutes.GET("/genres", genreHandler.GetGenres)
+		apiRoutes.GET("/genres/:id", genreHandler.GetGenreByID)
+		apiRoutes.GET("/genres/search", genreHandler.SearchGenres)
+		apiRoutes.GET("/genres/detail/:name", genreHandler.GetGenreDetailByName)
+	}
 
 	// Servisi başlat
 	serverAddr := cfg.GetServerAddress()
 	log.Printf("Genre service %s adresinde başlatılıyor...", serverAddr)
 	log.Println("🔗    Endpoints:")
-	log.Println("  📖 GET /genres                     - Sayfalı tür listesi")
-	log.Println("  📖 GET /genres/:id                 - Zenginleştirilmiş tür (kitap bilgisi ile)")
-	log.Println("  📖 GET /genres/search?name=...     - Tür arama")
-	log.Println("  📖 GET /genres/detail/:name        - Tür detayı + kitapları")
-	log.Println("  🩺 GET /health                    - Health check")
+	log.Println("  📖 GET /api/genres                     - Sayfalı tür listesi")
+	log.Println("  📖 GET /api/genres/:id                 - Zenginleştirilmiş tür (kitap bilgisi ile)")
+	log.Println("  📖 GET /api/genres/search?name=...     - Tür arama")
+	log.Println("  📖 GET /api/genres/detail/:name        - Tür detayı + kitapları")
+	log.Println("  🩺 GET /health                        - Health check")
 	
 	if err := r.Run(serverAddr); err != nil {
 		log.Fatal("Server başlatılamadı:", err)

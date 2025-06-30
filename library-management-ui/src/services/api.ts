@@ -156,19 +156,23 @@ export const recommendationsApi = {
   
   // 🆕 Random kategori önerileri (rastgele kategori seçilir)
   getRandomCategory: (limit = 15): Promise<ApiResponse<{ category: string; recommendations: Recommendation[]; total: number; type: string }>> => 
-    fetchApi(`/recommendations/category?limit=${limit}`),
+    fetchApi(`/recommendations/by-category?limit=${limit}`),
   
   // 🆕 Random yazar önerileri (rastgele yazar seçilir)
   getRandomAuthor: (limit = 15): Promise<ApiResponse<{ author: string; recommendations: Recommendation[]; total: number; type: string }>> => 
-    fetchApi(`/recommendations/author?limit=${limit}`),
+    fetchApi(`/recommendations/by-author?limit=${limit}`),
   
-  // Belirli kategoriye göre öneriler (eski endpoint)
+  // Belirli kategoriye göre öneriler
   getByCategory: (category: string, limit = 5): Promise<ApiResponse<{ category: string; recommendations: Recommendation[]; total: number }>> => 
-    fetchApi(`/recommendations/category/${encodeURIComponent(category)}?limit=${limit}`),
+    fetchApi(`/recommendations/by-category?category=${encodeURIComponent(category)}&limit=${limit}`),
   
-  // Belirli yazara göre öneriler (eski endpoint)
+  // Belirli yazara göre öneriler
   getByAuthor: (author: string, limit = 5): Promise<ApiResponse<{ author: string; recommendations: Recommendation[]; total: number }>> => 
-    fetchApi(`/recommendations/author/${encodeURIComponent(author)}?limit=${limit}`),
+    fetchApi(`/recommendations/by-author?author=${encodeURIComponent(author)}&limit=${limit}`),
+  
+  // Trend öneriler
+  getTrending: (limit = 15): Promise<ApiResponse<RecommendationResponse>> => 
+    fetchApi<ApiResponse<RecommendationResponse>>(`/recommendations/trending?limit=${limit}`),
   
   // Öneri servisinin durumu
   getStatus: (): Promise<ApiResponse<{ recommendation_service: string; dependent_services: Record<string, string>; all_services_healthy: boolean }>> => 

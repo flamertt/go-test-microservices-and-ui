@@ -1,11 +1,31 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { authApi } from '../services/api';
+import { 
+  FaUser,
+  FaEnvelope,
+  FaCalendarAlt,
+  FaClock,
+  FaLock,
+  FaKey,
+  FaSignOutAlt,
+  FaEdit,
+  FaTimes,
+  FaEye,
+  FaEyeSlash,
+  FaCheck,
+  FaExclamationTriangle,
+  FaUserShield,
+  FaInfoCircle
+} from 'react-icons/fa';
 import '../styles/ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
   const { user, logout } = useAuth();
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordData, setPasswordData] = useState({
     oldPassword: '',
     newPassword: '',
@@ -107,7 +127,9 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <div className="profile-avatar">👤</div>
+        <div className="profile-avatar">
+          <FaUser />
+        </div>
         <div className="profile-info">
           <h1>Profil Bilgilerim</h1>
           <p>Hesap bilgilerinizi görüntüleyin ve yönetin</p>
@@ -117,23 +139,38 @@ const ProfilePage: React.FC = () => {
       <div className="profile-content">
         <div className="profile-card">
           <div className="card-header">
-            <h2>🔍 Hesap Bilgileri</h2>
+            <h2>
+              <FaInfoCircle />
+              Hesap Bilgileri
+            </h2>
           </div>
           <div className="card-content">
             <div className="info-group">
-              <label>Kullanıcı Adı</label>
+              <label>
+                <FaUser className="info-icon" />
+                Kullanıcı Adı
+              </label>
               <div className="info-value">{user.username}</div>
             </div>
             <div className="info-group">
-              <label>E-posta Adresi</label>
+              <label>
+                <FaEnvelope className="info-icon" />
+                E-posta Adresi
+              </label>
               <div className="info-value">{user.email}</div>
             </div>
             <div className="info-group">
-              <label>Hesap Oluşturma Tarihi</label>
+              <label>
+                <FaCalendarAlt className="info-icon" />
+                Hesap Oluşturma Tarihi
+              </label>
               <div className="info-value">{formatDate(user.created_at)}</div>
             </div>
             <div className="info-group">
-              <label>Son Güncelleme</label>
+              <label>
+                <FaClock className="info-icon" />
+                Son Güncelleme
+              </label>
               <div className="info-value">{formatDate(user.updated_at)}</div>
             </div>
           </div>
@@ -141,7 +178,10 @@ const ProfilePage: React.FC = () => {
 
         <div className="profile-card">
           <div className="card-header">
-            <h2>🔐 Güvenlik</h2>
+            <h2>
+              <FaUserShield />
+              Güvenlik
+            </h2>
           </div>
           <div className="card-content">
             {!isChangingPassword ? (
@@ -150,6 +190,7 @@ const ProfilePage: React.FC = () => {
                   className="secondary-button"
                   onClick={() => setIsChangingPassword(true)}
                 >
+                  <FaEdit />
                   Şifre Değiştir
                 </button>
                 <p className="security-hint">
@@ -159,9 +200,13 @@ const ProfilePage: React.FC = () => {
             ) : (
               <form onSubmit={handlePasswordSubmit} className="password-form">
                 <div className="form-group">
-                  <label htmlFor="oldPassword">Mevcut Şifre</label>
+                  <label htmlFor="oldPassword">
+                    <FaLock />
+                    Mevcut Şifre
+                  </label>
+                  <div className="password-input-wrapper">
                   <input
-                    type="password"
+                      type={showOldPassword ? "text" : "password"}
                     id="oldPassword"
                     name="oldPassword"
                     value={passwordData.oldPassword}
@@ -169,12 +214,24 @@ const ProfilePage: React.FC = () => {
                     placeholder="Mevcut şifrenizi girin"
                     disabled={isLoading}
                   />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowOldPassword(!showOldPassword)}
+                    >
+                      {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="newPassword">Yeni Şifre</label>
+                  <label htmlFor="newPassword">
+                    <FaKey />
+                    Yeni Şifre
+                  </label>
+                  <div className="password-input-wrapper">
                   <input
-                    type="password"
+                      type={showNewPassword ? "text" : "password"}
                     id="newPassword"
                     name="newPassword"
                     value={passwordData.newPassword}
@@ -182,12 +239,24 @@ const ProfilePage: React.FC = () => {
                     placeholder="Yeni şifrenizi girin (en az 6 karakter)"
                     disabled={isLoading}
                   />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                    >
+                      {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="confirmPassword">Yeni Şifre Tekrar</label>
+                  <label htmlFor="confirmPassword">
+                    <FaCheck />
+                    Yeni Şifre Tekrar
+                  </label>
+                  <div className="password-input-wrapper">
                   <input
-                    type="password"
+                      type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     value={passwordData.confirmPassword}
@@ -195,6 +264,14 @@ const ProfilePage: React.FC = () => {
                     placeholder="Yeni şifrenizi tekrar girin"
                     disabled={isLoading}
                   />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
 
                 <div className="form-actions">
@@ -210,9 +287,13 @@ const ProfilePage: React.FC = () => {
                       });
                       setError('');
                       setMessage('');
+                      setShowOldPassword(false);
+                      setShowNewPassword(false);
+                      setShowConfirmPassword(false);
                     }}
                     disabled={isLoading}
                   >
+                    <FaTimes />
                     İptal
                   </button>
                   <button
@@ -220,6 +301,7 @@ const ProfilePage: React.FC = () => {
                     className={`primary-button ${isLoading ? 'loading' : ''}`}
                     disabled={isLoading}
                   >
+                    <FaCheck />
                     {isLoading ? 'Değiştiriliyor...' : 'Şifre Değiştir'}
                   </button>
                 </div>
@@ -231,7 +313,7 @@ const ProfilePage: React.FC = () => {
         {(message || error) && (
           <div className={`message-card ${error ? 'error' : 'success'}`}>
             <span className="message-icon">
-              {error ? '⚠️' : '✅'}
+              {error ? <FaExclamationTriangle /> : <FaCheck />}
             </span>
             <span className="message-text">
               {error || message}
@@ -241,11 +323,15 @@ const ProfilePage: React.FC = () => {
 
         <div className="profile-card">
           <div className="card-header">
-            <h2>🚪 Oturum Yönetimi</h2>
+            <h2>
+              <FaSignOutAlt />
+              Oturum Yönetimi
+            </h2>
           </div>
           <div className="card-content">
             <div className="logout-section">
               <button className="danger-button" onClick={handleLogout}>
+                <FaSignOutAlt />
                 Çıkış Yap
               </button>
               <p className="logout-hint">

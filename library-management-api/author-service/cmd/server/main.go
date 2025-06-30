@@ -49,21 +49,24 @@ func main() {
 		})
 	})
 
-	// API endpoint'leri -    handler'ları kullan
-	r.GET("/authors", authorHandler.GetAuthors)
-	r.GET("/authors/:id", authorHandler.GetAuthorByID)
-	r.GET("/authors/search", authorHandler.SearchAuthors)
-	r.GET("/authors/detail/:name", authorHandler.GetAuthorDetailByName)
+	// API endpoint'leri - diğer servislerle tutarlılık için /api prefix'i kullan
+	apiRoutes := r.Group("/api")
+	{
+		apiRoutes.GET("/authors", authorHandler.GetAuthors)
+		apiRoutes.GET("/authors/:id", authorHandler.GetAuthorByID)
+		apiRoutes.GET("/authors/search", authorHandler.SearchAuthors)
+		apiRoutes.GET("/authors/detail/:name", authorHandler.GetAuthorDetailByName)
+	}
 
 	// Servisi başlat
 	serverAddr := cfg.GetServerAddress()
 	log.Printf("Author service %s adresinde başlatılıyor...", serverAddr)
 	log.Println("🔗    Endpoints:")
-	log.Println("  ✍️  GET /authors                    - Sayfalı yazar listesi")
-	log.Println("  ✍️  GET /authors/:id                - Zenginleştirilmiş yazar (kitap bilgisi ile)")
-	log.Println("  ✍️  GET /authors/search?name=...    - Yazar arama")
-	log.Println("  ✍️  GET /authors/detail/:name       - Yazar detayı + kitapları")
-	log.Println("  🩺 GET /health                     - Health check")
+	log.Println("  ✍️  GET /api/authors                    - Sayfalı yazar listesi")
+	log.Println("  ✍️  GET /api/authors/:id                - Zenginleştirilmiş yazar (kitap bilgisi ile)")
+	log.Println("  ✍️  GET /api/authors/search?name=...    - Yazar arama")
+	log.Println("  ✍️  GET /api/authors/detail/:name       - Yazar detayı + kitapları")
+	log.Println("  🩺 GET /health                         - Health check")
 	
 	if err := r.Run(serverAddr); err != nil {
 		log.Fatal("Server başlatılamadı:", err)

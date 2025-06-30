@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import BooksPage from './pages/BooksPage';
 import AuthorsPage from './pages/AuthorsPage';
@@ -22,16 +23,74 @@ function App() {
         <div className="app-container">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/books" element={<BooksPage />} />
-            <Route path="/books/:id" element={<BookDetailPage />} />
-            <Route path="/authors" element={<AuthorsPage />} />
-            <Route path="/authors/:name" element={<AuthorDetailPage />} />
-            <Route path="/genres" element={<GenresPage />} />
-            <Route path="/genres/:name" element={<GenreDetailPage />} />
-            <Route path="/recommendations" element={<RecommendationsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            
+            {/* Korumalı Sayfalar */}
+            <Route 
+              path="/books" 
+              element={
+                <ProtectedRoute>
+                  <BooksPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/books/:id" 
+              element={
+                <ProtectedRoute>
+                  <BookDetailPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/authors" 
+              element={
+                <ProtectedRoute>
+                  <AuthorsPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/authors/:name" 
+              element={
+                <ProtectedRoute>
+                  <AuthorDetailPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/genres" 
+              element={
+                <ProtectedRoute>
+                  <GenresPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/genres/:name" 
+              element={
+                <ProtectedRoute>
+                  <GenreDetailPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/recommendations" 
+              element={
+                <ProtectedRoute>
+                  <RecommendationsPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </div>
       </Router>

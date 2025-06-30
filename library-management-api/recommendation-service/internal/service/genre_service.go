@@ -25,7 +25,7 @@ func NewGenreService(baseURL string) *GenreService {
 }
 
 func (s *GenreService) GetAllGenres(pageSize int) ([]model.Genre, error) {
-	url := fmt.Sprintf("%s/genres?page_size=%d", s.baseURL, pageSize)
+	url := fmt.Sprintf("%s/api/genres?page_size=%d", s.baseURL, pageSize)
 
 	resp, err := s.httpClient.Get(url)
 	if err != nil {

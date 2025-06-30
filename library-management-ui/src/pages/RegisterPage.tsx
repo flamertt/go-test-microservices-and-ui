@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { 
+  FaUserPlus, 
+  FaUser, 
+  FaEnvelope, 
+  FaLock, 
+  FaEye, 
+  FaEyeSlash,
+  FaExclamationTriangle,
+  FaSpinner,
+  FaCheck
+} from 'react-icons/fa';
 import '../styles/AuthPages.css';
 
 const RegisterPage: React.FC = () => {
@@ -12,6 +23,8 @@ const RegisterPage: React.FC = () => {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -94,77 +107,151 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const getPasswordStrength = (password: string) => {
+    if (password.length === 0) return { strength: 0, label: '' };
+    if (password.length < 4) return { strength: 1, label: 'Zayıf' };
+    if (password.length < 8) return { strength: 2, label: 'Orta' };
+    return { strength: 3, label: 'Güçlü' };
+  };
+
+  const passwordStrength = getPasswordStrength(formData.password);
+
   return (
     <div className="auth-container">
+      <div className="auth-background-decoration">
+        <div className="floating-shape shape-1"></div>
+        <div className="floating-shape shape-2"></div>
+        <div className="floating-shape shape-3"></div>
+      </div>
+      
       <div className="auth-card">
         <div className="auth-header">
-          <div className="auth-icon">📝</div>
-          <h1>Kayıt Ol</h1>
-          <p>Kütüphane hesabı oluşturun</p>
+          <div className="auth-icon">
+            <FaUserPlus />
+          </div>
+          <h1>Hesap Oluşturun</h1>
+          <p>Kütüphane hesabı oluşturun ve keşfetmeye başlayın</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
           {error && (
             <div className="error-message">
-              <span className="error-icon">⚠️</span>
+              <FaExclamationTriangle className="error-icon" />
               {error}
             </div>
           )}
 
           <div className="form-group">
-            <label htmlFor="username">Kullanıcı Adı</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Kullanıcı adınızı girin (3-50 karakter)"
-              disabled={isLoading}
-              autoComplete="username"
-            />
+            <label htmlFor="username">
+              <FaUser className="label-icon" />
+              Kullanıcı Adı
+            </label>
+            <div className="input-wrapper">
+              <FaUser className="input-icon" />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Kullanıcı adınızı girin (3-50 karakter)"
+                disabled={isLoading}
+                autoComplete="username"
+              />
+              {formData.username.length >= 3 && (
+                <FaCheck className="input-success-icon" />
+              )}
+            </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">E-posta Adresi</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="E-posta adresinizi girin"
-              disabled={isLoading}
-              autoComplete="email"
-            />
+            <label htmlFor="email">
+              <FaEnvelope className="label-icon" />
+              E-posta Adresi
+            </label>
+            <div className="input-wrapper">
+              <FaEnvelope className="input-icon" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="E-posta adresinizi girin"
+                disabled={isLoading}
+                autoComplete="email"
+              />
+              {formData.email.includes('@') && formData.email.includes('.') && (
+                <FaCheck className="input-success-icon" />
+              )}
+            </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Şifre</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Şifrenizi girin (en az 6 karakter)"
-              disabled={isLoading}
-              autoComplete="new-password"
-            />
+            <label htmlFor="password">
+              <FaLock className="label-icon" />
+              Şifre
+            </label>
+            <div className="input-wrapper">
+              <FaLock className="input-icon" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Şifrenizi girin (en az 6 karakter)"
+                disabled={isLoading}
+                autoComplete="new-password"
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={isLoading}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            {formData.password && (
+              <div className="password-strength">
+                <div className={`strength-bar strength-${passwordStrength.strength}`}>
+                  <div className="strength-fill"></div>
+                </div>
+                <span className="strength-label">{passwordStrength.label}</span>
+              </div>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">Şifre Tekrar</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Şifrenizi tekrar girin"
-              disabled={isLoading}
-              autoComplete="new-password"
-            />
+            <label htmlFor="confirmPassword">
+              <FaLock className="label-icon" />
+              Şifre Tekrar
+            </label>
+            <div className="input-wrapper">
+              <FaLock className="input-icon" />
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Şifrenizi tekrar girin"
+                disabled={isLoading}
+                autoComplete="new-password"
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                disabled={isLoading}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              {formData.confirmPassword && formData.password === formData.confirmPassword && (
+                <FaCheck className="input-success-icon" />
+              )}
+            </div>
           </div>
 
           <button
@@ -174,11 +261,14 @@ const RegisterPage: React.FC = () => {
           >
             {isLoading ? (
               <>
-                <span className="spinner"></span>
+                <FaSpinner className="spinner-icon" />
                 Kayıt oluşturuluyor...
               </>
             ) : (
-              'Kayıt Ol'
+              <>
+                <FaUserPlus className="button-icon" />
+                Kayıt Ol
+              </>
             )}
           </button>
         </form>
@@ -192,8 +282,6 @@ const RegisterPage: React.FC = () => {
           </p>
         </div>
       </div>
-
-
     </div>
   );
 };

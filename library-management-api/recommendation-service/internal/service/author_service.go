@@ -25,7 +25,7 @@ func NewAuthorService(baseURL string) *AuthorService {
 }
 
 func (s *AuthorService) GetAllAuthors(pageSize int) ([]model.Author, error) {
-	url := fmt.Sprintf("%s/authors?page_size=%d", s.baseURL, pageSize)
+	url := fmt.Sprintf("%s/api/authors?page_size=%d", s.baseURL, pageSize)
 
 	resp, err := s.httpClient.Get(url)
 	if err != nil {

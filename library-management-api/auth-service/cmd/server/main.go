@@ -62,36 +62,40 @@ func main() {
 		})
 	})
 
-	// Public routes (authentication gerektirmeyen)
-	publicRoutes := r.Group("/auth")
+	// API routes - diğer servislerle tutarlılık için /api prefix'i kullan
+	apiRoutes := r.Group("/api")
 	{
-		publicRoutes.POST("/register", authHandler.Register)
-		publicRoutes.POST("/login", authHandler.Login)
-		publicRoutes.POST("/refresh", authHandler.RefreshToken)
-	}
+		// Public routes (authentication gerektirmeyen)
+		publicRoutes := apiRoutes.Group("/auth")
+		{
+			publicRoutes.POST("/register", authHandler.Register)
+			publicRoutes.POST("/login", authHandler.Login)
+			publicRoutes.POST("/refresh", authHandler.RefreshToken)
+		}
 
-	// Protected routes (authentication gerektiren)
-	protectedRoutes := r.Group("/auth")
-	protectedRoutes.Use(authMiddleware.RequireAuth())
-	{
-		protectedRoutes.GET("/profile", authHandler.GetProfile)
-		protectedRoutes.POST("/change-password", authHandler.ChangePassword)
-		protectedRoutes.GET("/validate", authHandler.ValidateToken)
-		protectedRoutes.GET("/users/:id", authHandler.GetUser)
+		// Protected routes (authentication gerektiren)
+		protectedRoutes := apiRoutes.Group("/auth")
+		protectedRoutes.Use(authMiddleware.RequireAuth())
+		{
+			protectedRoutes.GET("/profile", authHandler.GetProfile)
+			protectedRoutes.POST("/change-password", authHandler.ChangePassword)
+			protectedRoutes.GET("/validate", authHandler.ValidateToken)
+			protectedRoutes.GET("/users/:id", authHandler.GetUser)
+		}
 	}
 
 	// Servisi başlat
 	serverAddr := cfg.GetServerAddress()
 	log.Printf("Auth service %s adresinde başlatılıyor...", serverAddr)
 	log.Println("🔗 Endpoints:")
-	log.Println("  📝 POST /auth/register           - Kullanıcı kaydı")
-	log.Println("  🔐 POST /auth/login              - Kullanıcı girişi")
-	log.Println("  🔄 POST /auth/refresh            - Token yenileme")
-	log.Println("  👤 GET  /auth/profile            - Kullanıcı profili (Protected)")
-	log.Println("  🔑 POST /auth/change-password    - Şifre değiştirme (Protected)")
-	log.Println("  ✅ GET  /auth/validate           - Token doğrulama (Protected)")
-	log.Println("  👥 GET  /auth/users/:id          - Kullanıcı bilgisi (Protected)")
-	log.Println("  🩺 GET  /health                 - Health check")
+	log.Println("  📝 POST /api/auth/register           - Kullanıcı kaydı")
+	log.Println("  🔐 POST /api/auth/login              - Kullanıcı girişi")
+	log.Println("  🔄 POST /api/auth/refresh            - Token yenileme")
+	log.Println("  👤 GET  /api/auth/profile            - Kullanıcı profili (Protected)")
+	log.Println("  🔑 POST /api/auth/change-password    - Şifre değiştirme (Protected)")
+	log.Println("  ✅ GET  /api/auth/validate           - Token doğrulama (Protected)")
+	log.Println("  👥 GET  /api/auth/users/:id          - Kullanıcı bilgisi (Protected)")
+	log.Println("  🩺 GET  /health                     - Health check")
 	log.Printf("  🔑 JWT Secret: %s", cfg.JWT.SecretKey[:10]+"...")
 	log.Printf("  ⏰ Token Duration: %s", cfg.JWT.TokenDuration)
 

@@ -34,7 +34,7 @@ func NewHTTPBookService(baseURL string) BookService {
 
 // GetBooksByAuthor book service'den yazar kitaplarını getirir
 func (s *HTTPBookService) GetBooksByAuthor(authorName string) ([]model.BookInfo, error) {
-	url := fmt.Sprintf("%s/books/author/%s", s.baseURL, authorName)
+	url := fmt.Sprintf("%s/api/books/author/%s", s.baseURL, authorName)
 	
 	log.Printf("Book service'e istek gönderiliyor: %s", url)
 	

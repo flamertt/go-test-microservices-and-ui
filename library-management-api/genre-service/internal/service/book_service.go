@@ -36,7 +36,7 @@ func NewHTTPBookService(baseURL string) BookService {
 
 // GetBooksByCategory book service'den kategori kitaplarını getirir
 func (s *HTTPBookService) GetBooksByCategory(categoryName string) ([]model.BookInfo, error) {
-	url := fmt.Sprintf("%s/books/category/%s", s.baseURL, categoryName)
+	url := fmt.Sprintf("%s/api/books/category/%s", s.baseURL, categoryName)
 	
 	log.Printf("Book service'e istek gönderiliyor: %s", url)
 	
@@ -68,7 +68,7 @@ func (s *HTTPBookService) GetBooksByCategory(categoryName string) ([]model.BookI
 
 // GetBooksByCategoryWithPagination book service'den kategori kitaplarını sayfalanmış olarak getirir
 func (s *HTTPBookService) GetBooksByCategoryWithPagination(categoryName string, page, pageSize int) ([]model.BookInfo, error) {
-	url := fmt.Sprintf("%s/books/category/%s?page=%d&page_size=%d", s.baseURL, categoryName, page, pageSize)
+	url := fmt.Sprintf("%s/api/books/category/%s?page=%d&page_size=%d", s.baseURL, categoryName, page, pageSize)
 	
 	log.Printf("Book service'e sayfalanmış istek gönderiliyor: %s", url)
 	
@@ -103,7 +103,7 @@ func (s *HTTPBookService) GetBooksByCategoryWithPagination(categoryName string, 
 // GetBookCountByCategory book service'den kategori kitap sayısını getirir
 func (s *HTTPBookService) GetBookCountByCategory(categoryName string) (int, error) {
 	// Pagination ile 1 sayfa, 1 eleman isteyerek total count'u al (optimize edilmiş)
-	url := fmt.Sprintf("%s/books/category/%s?page=1&page_size=1", s.baseURL, categoryName)
+	url := fmt.Sprintf("%s/api/books/category/%s?page=1&page_size=1", s.baseURL, categoryName)
 	
 	log.Printf("Book service'e count isteği gönderiliyor: %s", url)
 	

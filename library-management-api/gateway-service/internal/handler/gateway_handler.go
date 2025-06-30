@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strings"
 
 	"gateway-service/configs"
 	"gateway-service/internal/service"
@@ -50,27 +51,45 @@ func (h *GatewayHandler) ServicesHealthCheck(c *gin.Context) {
 	})
 }
 
-// ProxyToBookService kitap servisine proxy
-func (h *GatewayHandler) ProxyToBookService(c *gin.Context) {
-	h.proxyService.ProxyRequest(c, h.config.Services.BookServiceURL, "/books")
+// RouteToService dinamik olarak istekleri doğru servise yönlendirir
+func (h *GatewayHandler) RouteToService(c *gin.Context) {
+	// URL path'ini analiz et
+	path := c.Request.URL.Path
+	
+	// Service'i path'e göre belirle
+	var targetURL string
+	var serviceName string
+	
+	switch {
+	case strings.HasPrefix(path, "/api/books"):
+		targetURL = h.config.Services.BookServiceURL
+		serviceName = "book-service"
+	case strings.HasPrefix(path, "/api/authors"):
+		targetURL = h.config.Services.AuthorServiceURL
+		serviceName = "author-service"
+	case strings.HasPrefix(path, "/api/genres"):
+		targetURL = h.config.Services.GenreServiceURL
+		serviceName = "genre-service"
+	case strings.HasPrefix(path, "/api/recommendations"):
+		targetURL = h.config.Services.RecommendationServiceURL
+		serviceName = "recommendation-service"
+	case strings.HasPrefix(path, "/api/auth"):
+		targetURL = h.config.Services.AuthServiceURL
+		serviceName = "auth-service"
+	default:
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": gin.H{
+				"code":    "SERVICE_NOT_FOUND",
+				"message": "İlgili servis bulunamadı",
+				"path":    path,
+			},
+		})
+		return
+	}
+
+	// İsteği ilgili servise yönlendir
+	h.proxyService.ProxyRequest(c, targetURL, serviceName)
 }
 
-// ProxyToAuthorService yazar servisine proxy
-func (h *GatewayHandler) ProxyToAuthorService(c *gin.Context) {
-	h.proxyService.ProxyRequest(c, h.config.Services.AuthorServiceURL, "/authors")
-}
-
-// ProxyToGenreService tür servisine proxy
-func (h *GatewayHandler) ProxyToGenreService(c *gin.Context) {
-	h.proxyService.ProxyRequest(c, h.config.Services.GenreServiceURL, "/genres")
-}
-
-// ProxyToRecommendationService öneri servisine proxy
-func (h *GatewayHandler) ProxyToRecommendationService(c *gin.Context) {
-	h.proxyService.ProxyRequest(c, h.config.Services.RecommendationServiceURL, "/recommendations")
-}
-
-// ProxyToAuthService auth servisine proxy
-func (h *GatewayHandler) ProxyToAuthService(c *gin.Context) {
-	h.proxyService.ProxyRequest(c, h.config.Services.AuthServiceURL, "/auth")
-} 
+// Eski metodları kaldırıyoruz, artık RouteToService kullanacağız
+// ProxyToBookService, ProxyToAuthorService, vs. metodları gereksiz 

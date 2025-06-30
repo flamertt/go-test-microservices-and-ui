@@ -34,7 +34,7 @@ func NewHTTPAuthorService(baseURL string) AuthorService {
 
 // GetAuthorInfo author service'den yazar bilgisini getirir
 func (s *HTTPAuthorService) GetAuthorInfo(authorName string) (*model.AuthorInfo, error) {
-	url := fmt.Sprintf("%s/authors/search?name=%s", s.baseURL, authorName)
+	url := fmt.Sprintf("%s/api/authors/search?name=%s", s.baseURL, authorName)
 	
 	log.Printf("Author service'e istek gönderiliyor: %s", url)
 	

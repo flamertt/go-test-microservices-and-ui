@@ -1,10 +1,11 @@
-/* Profile Page - Site Temasına Uygun Modern Tasarım */
+/* Profile Page - Modern Flat Tasarım */
 
 .profile-container {
-  max-width: 800px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 40px 20px;
   min-height: calc(100vh - 72px);
+  background: #f8fafc;
 }
 
 .profile-header {
@@ -12,35 +13,20 @@
   align-items: center;
   gap: 24px;
   margin-bottom: 40px;
-  padding: 32px;
-  background: linear-gradient(135deg, #1976d2, #2196f3);
-  border-radius: 24px;
+  padding: 40px;
+  background: #3498db;
+  border-radius: 20px;
   color: white;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(25, 118, 210, 0.3);
+  box-shadow: 0 10px 40px rgba(52, 152, 219, 0.25);
   animation: slideUp 0.6s ease-out;
 }
 
-.profile-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.5s;
-}
-
-.profile-header:hover::before {
-  left: 100%;
-}
-
 .profile-avatar {
-  font-size: 64px;
-  width: 100px;
-  height: 100px;
+  font-size: 48px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +42,7 @@
 .profile-header:hover .profile-avatar {
   transform: scale(1.05);
   border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .profile-info {
@@ -87,7 +74,7 @@
 
 .profile-card {
   background: white;
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(226, 232, 240, 0.8);
   overflow: hidden;
@@ -104,29 +91,34 @@
 }
 
 .card-header {
-  padding: 24px 32px 16px;
+  padding: 24px 32px 20px;
   border-bottom: 1px solid #e3f2fd;
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  background: #f8fafc;
 }
 
 .card-header h2 {
   font-size: 20px;
   font-weight: 700;
-  color: #1976d2;
+  color: #2c3e50;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+}
+
+.card-header h2 svg {
+  font-size: 18px;
+  color: #3498db;
 }
 
 .card-content {
-  padding: 24px 32px 32px;
+  padding: 28px 32px 32px;
 }
 
 .info-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 24px;
 }
 
@@ -135,27 +127,35 @@
 }
 
 .info-group label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  color: #1976d2;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.info-icon {
+  font-size: 14px;
+  color: #3498db;
 }
 
 .info-value {
   font-size: 16px;
   font-weight: 500;
-  color: #1a1a1a;
-  padding: 12px 16px;
+  color: #2c3e50;
+  padding: 14px 18px;
   background: #f8fafc;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 2px solid #e3f2fd;
   transition: all 0.2s ease;
 }
 
 .info-value:hover {
-  background: #eff6ff;
-  border-color: #bbdefb;
+  background: #f1f5f9;
+  border-color: #bfdbfe;
 }
 
 /* Security Section */
@@ -172,119 +172,167 @@
 
 /* Password Form */
 .password-form {
-  max-width: 400px;
+  max-width: 450px;
 }
 
 .password-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .password-form .form-group label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
-  color: #1976d2;
-  margin-bottom: 8px;
+  color: #2c3e50;
+  margin-bottom: 10px;
   font-size: 14px;
-  text-transform: none;
-  letter-spacing: normal;
 }
 
-.password-form .form-group input {
+.password-form .form-group label svg {
+  font-size: 14px;
+  color: #3498db;
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 50px 14px 18px;
   border: 2px solid #e3f2fd;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   font-family: inherit;
   transition: all 0.2s ease;
   box-sizing: border-box;
-  background: #fafffe;
+  background: white;
 }
 
-.password-form .form-group input:focus {
+.password-input-wrapper input:focus {
   outline: none;
-  border-color: #1976d2;
-  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
-  background: white;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background: #fbfcfd;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.password-toggle svg {
+  font-size: 16px;
 }
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: flex-end;
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
-/* Buttons */
 .primary-button {
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #1976d2, #1565c0);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #3498db;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: center;
 }
 
 .primary-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  background: #2980b9;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
 .primary-button:disabled {
-  opacity: 0.6;
+  background: #bdc3c7;
   cursor: not-allowed;
   transform: none;
 }
 
 .secondary-button {
-  padding: 12px 24px;
-  background: white;
-  color: #1976d2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  color: #2c3e50;
   border: 2px solid #e3f2fd;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: center;
 }
 
 .secondary-button:hover:not(:disabled) {
-  background: #eff6ff;
-  border-color: #1976d2;
+  background: #f1f5f9;
+  border-color: #bfdbfe;
+  color: #1e293b;
   transform: translateY(-1px);
 }
 
 .secondary-button:disabled {
-  opacity: 0.6;
+  background: #f1f5f9;
+  color: #9ca3af;
   cursor: not-allowed;
   transform: none;
 }
 
 .danger-button {
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e74c3c;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: center;
 }
 
 .danger-button:hover {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: #c0392b;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
 
-/* Message Cards */
 .message-card {
   display: flex;
   align-items: center;
@@ -293,23 +341,22 @@
   border-radius: 12px;
   font-weight: 500;
   animation: slideIn 0.3s ease-out;
-  border: 2px solid;
 }
 
 .message-card.success {
-  background: rgba(34, 197, 94, 0.1);
-  color: #16a34a;
-  border-color: rgba(34, 197, 94, 0.2);
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
 .message-card.error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
-  border-color: rgba(239, 68, 68, 0.2);
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 .message-icon {
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
 }
 
@@ -328,7 +375,6 @@
   }
 }
 
-/* Logout Section */
 .logout-section {
   text-align: center;
 }
@@ -340,7 +386,6 @@
   line-height: 1.5;
 }
 
-/* Profile Error */
 .profile-error {
   text-align: center;
   padding: 60px 20px;
@@ -348,16 +393,14 @@
 }
 
 .profile-error h2 {
-  color: #1a1a1a;
+  color: #374151;
   margin-bottom: 8px;
-  font-weight: 700;
 }
 
 .profile-error p {
   margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .profile-container {
     padding: 20px 16px;
@@ -366,26 +409,25 @@
   .profile-header {
     flex-direction: column;
     text-align: center;
-    gap: 16px;
-    padding: 24px 20px;
+    padding: 32px 24px;
   }
 
   .profile-avatar {
-    font-size: 48px;
     width: 80px;
     height: 80px;
+    font-size: 40px;
   }
 
   .profile-info h1 {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .card-content {
-    padding: 20px 24px 24px;
+    padding: 24px 20px;
   }
 
   .card-header {
-    padding: 20px 24px 12px;
+    padding: 20px;
   }
 
   .form-actions {
@@ -403,15 +445,15 @@
   }
 
   .profile-header {
-    padding: 20px 16px;
+    padding: 24px 20px;
   }
 
   .card-content {
-    padding: 16px 20px 20px;
+    padding: 20px 16px;
   }
 
   .card-header {
-    padding: 16px 20px 12px;
+    padding: 16px;
   }
 
   .card-header h2 {
@@ -419,25 +461,6 @@
   }
 }
 
-/* Card Hover Animation */
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #1976d2, #2196f3);
-  border-radius: 20px 20px 0 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.profile-card:hover::before {
-  opacity: 1;
-}
-
-/* Enhanced Animations */
 @keyframes slideUp {
   from {
     opacity: 0;
