@@ -63,6 +63,10 @@ func setupRoutes(r *gin.Engine, h *handler.GatewayHandler) {
 		recommendations := api.Group("/recommendations")
 		recommendations.GET("", h.ProxyToRecommendationService).GET("/category", h.ProxyToRecommendationService).GET("/author", h.ProxyToRecommendationService).GET("/category/:category", h.ProxyToRecommendationService).GET("/author/:author", h.ProxyToRecommendationService).GET("/status", h.ProxyToRecommendationService)
 		
+		// Auth Service
+		auth := api.Group("/auth")
+		auth.POST("/register", h.ProxyToAuthService).POST("/login", h.ProxyToAuthService).POST("/refresh", h.ProxyToAuthService).GET("/profile", h.ProxyToAuthService).POST("/change-password", h.ProxyToAuthService).GET("/validate", h.ProxyToAuthService).GET("/users/:id", h.ProxyToAuthService)
+		
 		// Services health check
 		api.GET("/health", h.ServicesHealthCheck)
 	}
@@ -90,6 +94,10 @@ func printAPIEndpoints() {
 	log.Println("  🤖 Recommendations:              http://localhost:3000/api/recommendations")
 	log.Println("  🤖 Recommendations by Category:  http://localhost:3000/api/recommendations/category/:category")
 	log.Println("  🤖 Recommendations by Author:    http://localhost:3000/api/recommendations/author/:author")
+	log.Println("  🔐 Auth Register:                http://localhost:3000/api/auth/register")
+	log.Println("  🔐 Auth Login:                   http://localhost:3000/api/auth/login")
+	log.Println("  🔐 Auth Profile:                 http://localhost:3000/api/auth/profile")
+	log.Println("  🔐 Auth Validate:                http://localhost:3000/api/auth/validate")
 	log.Println("  🩺 Health Check:                 http://localhost:3000/api/health")
 	log.Println("  🩺 Gateway Health:               http://localhost:3000/health")
 } 

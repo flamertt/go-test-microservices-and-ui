@@ -1,20 +1,5 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Avatar,
-  Chip,
-  Divider,
-} from '@mui/material';
-import {
-  ArrowBack as ArrowBackIcon,
-  Person as PersonIcon,
-  Book as BookIcon,
-} from '@mui/icons-material';
 import { useApi } from '../hooks/useApi';
 import type { AuthorDetail } from '../services/api';
 import BookCard from '../components/BookCard';

@@ -36,29 +36,30 @@ Bu proje, **Go** ve **React** teknolojileri kullanılarak geliştirilmiş tam ö
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                       MICROSERVICES LAYER                  │
 │                                                                             │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐             │
-│  │Book Service 📚 │  │Author Service ✍️│  │Genre Service 📖│             │
-│  │(Port: 3001)    │◄─┤(Port: 3002)     │◄─┤(Port: 3003)     │             │
-│  │🏗️ Clean Arch   │  │🏗️ Clean Arch    │  │🏗️ Clean Arch    │             │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐│
+│  │Book Service 📚 │  │Author Service ✍️│  │Genre Service 📖│  │Auth Service 🔐││
+│  │(Port: 3001)    │◄─┤(Port: 3002)     │◄─┤(Port: 3003)     │  │(Port: 3005)  ││
+│  │🏗️ Clean Arch   │  │🏗️ Clean Arch    │  │🏗️ Clean Arch    │  │🏗️ Clean Arch ││
 │  │                │  │                 │  │                 │             │
-│  │📋 Domain:      │  │📋 Domain:       │  │📋 Domain:       │             │
-│  │• Book Entity   │  │• Author Entity  │  │• Genre Entity   │             │
-│  │• Search Params │  │• Book Info      │  │• Book Info      │             │
-│  │• Domain Errors │  │• Domain Errors  │  │• Domain Errors  │             │
+│  │📋 Domain:      │  │📋 Domain:       │  │📋 Domain:       │  │📋 Domain:    ││
+│  │• Book Entity   │  │• Author Entity  │  │• Genre Entity   │  │• User Entity ││
+│  │• Search Params │  │• Book Info      │  │• Book Info      │  │• JWT Claims  ││
+│  │• Domain Errors │  │• Domain Errors  │  │• Domain Errors  │  │• Auth Errors ││
 │  │                │  │                 │  │                 │             │
-│  │💼 Use Cases:   │  │💼 Use Cases:    │  │💼 Use Cases:    │             │
-│  │• GetBooks      │  │• GetAuthors     │  │• GetGenres      │             │
-│  │• EnrichBooks   │  │• GetAuthorBooks │  │• GetGenreBooks  │             │
+│  │💼 Use Cases:   │  │💼 Use Cases:    │  │💼 Use Cases:    │  │💼 Use Cases: ││
+│  │• GetBooks      │  │• GetAuthors     │  │• GetGenres      │  │• Register    ││
+│  │• EnrichBooks   │  │• GetAuthorBooks │  │• GetGenreBooks  │  │• Login       ││
+│  │                │  │                 │  │                 │  │• ValidateJWT ││
 │  │                │  │                 │  │                 │             │
-│  │🔌 Interface:   │  │🔌 Interface:    │  │🔌 Interface:    │             │
-│  │• Repository    │  │• Repository     │  │• Repository     │             │
-│  │• HTTP Handler  │  │• HTTP Handler   │  │• HTTP Handler   │             │
-│  │• Author Service│  │• Book Service   │  │• Book Service   │             │
+│  │🔌 Interface:   │  │🔌 Interface:    │  │🔌 Interface:    │  │🔌 Interface: ││
+│  │• Repository    │  │• Repository     │  │• Repository     │  │• Repository  ││
+│  │• HTTP Handler  │  │• HTTP Handler   │  │• HTTP Handler   │  │• HTTP Handler││
+│  │• Author Service│  │• Book Service   │  │• Book Service   │  │• Middleware  ││
 │  │                │  │                 │  │                 │             │
-│  │🖥️ Framework:   │  │🖥️ Framework:    │  │🖥️ Framework:    │             │
-│  │• Gin Router    │  │• Gin Router     │  │• Gin Router     │             │
-│  │• PostgreSQL    │  │• PostgreSQL     │  │• PostgreSQL     │             │
-│  │• HTTP Client   │  │• HTTP Client    │  │• HTTP Client    │             │
+│  │🖥️ Framework:   │  │🖥️ Framework:    │  │🖥️ Framework:    │  │🖥️ Framework:││
+│  │• Gin Router    │  │• Gin Router     │  │• Gin Router     │  │• Gin Router  ││
+│  │• PostgreSQL    │  │• PostgreSQL     │  │• PostgreSQL     │  │• PostgreSQL  ││
+│  │• HTTP Client   │  │• HTTP Client    │  │• HTTP Client    │  │• JWT/bcrypt  ││
 │  └─────────────────┘  └─────────────────┘  └─────────────────┘             │
 │           ▲                      ▲                   ▲                     │
 │           │                      │                   │                     │
@@ -154,6 +155,27 @@ library-microservices/
 │   ├── main.go.old                # Legacy backup
 │   └── go.mod
 │
+├── auth-service/                   # 🔐 Auth Service [  ]
+│   ├── cmd/server/main.go          # 🎯 Entry point + DI
+│   ├── configs/config.go           # ⚙️ Configuration
+│   ├── internal/
+│   │   ├── model/                  # 📋 Domain Layer
+│   │   │   ├── user.go            # User entity & requests
+│   │   │   └── errors.go          # Auth-specific errors
+│   │   ├── repository/             # 🔌 Interface Layer
+│   │   │   └── user_repository.go # PostgreSQL implementation
+│   │   ├── service/                # 💼 Use Case Layer
+│   │   │   └── auth_service.go    # Authentication logic
+│   │   ├── handler/                # 🔌 Interface Layer
+│   │   │   └── auth_handler.go    # HTTP endpoints
+│   │   └── middleware/             # 🔌 Interface Layer
+│   │       └── auth_middleware.go # JWT validation
+│   ├── utils/                     # 🖥️ Framework Layer
+│   │   ├── jwt.go                 # JWT token management
+│   │   └── password.go            # Password hashing
+│   ├── data/users.sql             # 🖥️ Database schema
+│   └── go.mod
+│
 ├── recommendation-service/          # 🤖 [Legacy - To be migrated]
 │   ├── main.go                     # 📄 Legacy monolithic
 │   └── go.mod
@@ -190,6 +212,7 @@ cd library-microservices
 ### **   Manuel Başlatma**
 ```bash
 #    servisleri (cmd/server path)
+cd auth-service/cmd/server && go run main.go       # Port 3005
 cd genre-service/cmd/server && go run main.go      # Port 3003
 cd author-service/cmd/server && go run main.go     # Port 3002
 cd book-service/cmd/server && go run main.go       # Port 3001

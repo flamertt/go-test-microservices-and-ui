@@ -39,6 +39,7 @@ func (h *GatewayHandler) ServicesHealthCheck(c *gin.Context) {
 		"author-service":        h.config.Services.AuthorServiceURL,
 		"genre-service":         h.config.Services.GenreServiceURL,
 		"recommendation-service": h.config.Services.RecommendationServiceURL,
+		"auth-service":          h.config.Services.AuthServiceURL,
 	}
 
 	serviceHealths := h.proxyService.CheckAllServicesHealth(services)
@@ -67,4 +68,9 @@ func (h *GatewayHandler) ProxyToGenreService(c *gin.Context) {
 // ProxyToRecommendationService öneri servisine proxy
 func (h *GatewayHandler) ProxyToRecommendationService(c *gin.Context) {
 	h.proxyService.ProxyRequest(c, h.config.Services.RecommendationServiceURL, "/recommendations")
+}
+
+// ProxyToAuthService auth servisine proxy
+func (h *GatewayHandler) ProxyToAuthService(c *gin.Context) {
+	h.proxyService.ProxyRequest(c, h.config.Services.AuthServiceURL, "/auth")
 } 

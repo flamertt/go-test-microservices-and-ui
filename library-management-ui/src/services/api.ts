@@ -1,4 +1,4 @@
-import type { Book, Author, Genre, ApiResponse } from '../types';
+import type { Book, Author, Genre, ApiResponse, LoginRequest, RegisterRequest, LoginResponse, RegisterResponse, User } from '../types';
 
 const API_BASE_URL = '/api';
 
@@ -15,6 +15,38 @@ async function fetchApi<T>(endpoint: string): Promise<T> {
     return data;
   } catch (error) {
     console.error('Fetch hatası:', error);
+    throw error;
+  }
+}
+
+// Auth için özel fetch fonksiyonu (artık Gateway üzerinden)
+async function fetchAuthApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  try {
+    const token = localStorage.getItem('auth_token');
+    
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    };
+    
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+    
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Network error' }));
+      throw new Error(errorData.message || errorData.error || `HTTP ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Auth API hatası:', error);
     throw error;
   }
 }
@@ -152,4 +184,54 @@ export const healthApi = {
   // Öneri servisinin durumu
   getRecommendations: (): Promise<ApiResponse<any>> => 
     fetchApi<ApiResponse<any>>('/recommendations/status'),
+};
+
+// 🔐 Auth API
+export const authApi = {
+  // Kullanıcı kaydı
+  register: (userData: RegisterRequest): Promise<RegisterResponse> =>
+    fetchAuthApi<RegisterResponse>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    }),
+  
+  // Kullanıcı girişi
+  login: (credentials: LoginRequest): Promise<LoginResponse> =>
+    fetchAuthApi<LoginResponse>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    }),
+  
+  // Kullanıcı profili getir
+  getProfile: (): Promise<User> =>
+    fetchAuthApi<User>('/auth/profile'),
+  
+  // Token doğrula
+  validateToken: (): Promise<{ valid: boolean; user_id: number; username: string; email: string }> =>
+    fetchAuthApi('/auth/validate'),
+  
+  // Şifre değiştir
+  changePassword: (oldPassword: string, newPassword: string): Promise<{ message: string }> =>
+    fetchAuthApi('/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({
+        old_password: oldPassword,
+        new_password: newPassword,
+      }),
+    }),
+  
+  // Token yenile
+  refreshToken: (token: string): Promise<{ token: string }> =>
+    fetchAuthApi('/auth/refresh', {
+      method: 'POST',
+      body: JSON.stringify({ token }),
+    }),
+  
+  // Kullanıcı bilgisi getir (ID ile)
+  getUser: (id: number): Promise<User> =>
+    fetchAuthApi<User>(`/auth/users/${id}`),
+  
+  // Auth servis health check
+  healthCheck: (): Promise<{ status: string; service: string; message: string }> =>
+    fetchAuthApi('/health'),
 }; 

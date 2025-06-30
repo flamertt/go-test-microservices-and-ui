@@ -90,8 +90,9 @@ echo -e "${YELLOW}📋      Servisleri başlatma sırası:${NC}"
 echo "1. 📖 Genre Service (Port: 3003) -     "
 echo "2. ✍️  Author Service (Port: 3002) -     "  
 echo "3. 📚 Book Service (Port: 3001) -     "
-echo "4. 🤖 Recommendation Service (Port: 3004) -     "
-echo "5. 🌐 Gateway Service (Port: 3000) -     "
+echo "4. 🔐 Auth Service (Port: 3005) -     "
+echo "5. 🤖 Recommendation Service (Port: 3004) -     "
+echo "6. 🌐 Gateway Service (Port: 3000) -     "
 echo ""
 
 # Servisleri sırayla başlat
@@ -127,7 +128,17 @@ else
     failed_services+=("Book Service")
 fi
 
-# 4. Recommendation Service ( )
+# 4. Auth Service ( )
+if start_service "auth-service" "auth-service" "3005" " "; then
+    sleep 3
+    if ! check_port 3005; then
+        echo -e "${YELLOW}⚠️  Auth Service portu henüz dinlemiyor, devam ediliyor...${NC}"
+    fi
+else
+    failed_services+=("Auth Service")
+fi
+
+# 5. Recommendation Service ( )
 if start_service "recommendation-service" "recommendation-service" "3004" ""; then 
     sleep 3
     if ! check_port 3004; then
@@ -137,7 +148,7 @@ else
     failed_services+=("Recommendation Service")
 fi
 
-# 5. Gateway Service ( ) - en son
+# 6. Gateway Service ( ) - en son
 if start_service "gateway-service" "gateway-service" "3000" " "; then
     sleep 3
     if ! check_port 3000; then
@@ -158,6 +169,7 @@ if [ ${#failed_services[@]} -eq 0 ]; then
     echo -e "${PURPLE}• Genre Service:         http://localhost:3003/health   📖 [ ]${NC}"
     echo -e "${PURPLE}• Author Service:        http://localhost:3002/health   ✍️  [ ]${NC}"
     echo -e "${PURPLE}• Book Service:          http://localhost:3001/health   📚 [ ]${NC}"
+    echo -e "${PURPLE}• Auth Service:          http://localhost:3005/health   🔐 [ ]${NC}"
     echo -e "${PURPLE}• Recommendation Service: http://localhost:3004/health   🤖 [ ]${NC}"
     echo -e "${PURPLE}• Gateway Service:       http://localhost:3000/health   🌐 [ ]${NC}"
     echo ""
@@ -167,6 +179,13 @@ if [ ${#failed_services[@]} -eq 0 ]; then
     echo -e "${PURPLE}• Authors (Detailed):    http://localhost:3000/api/authors${NC}"
     echo -e "${PURPLE}• Genres (Detailed):     http://localhost:3000/api/genres${NC}"
     echo -e "${PURPLE}• Recommendations:       http://localhost:3000/api/recommendations${NC}"
+    echo ""
+    echo -e "${BLUE}🔐 Auth Service Endpoints:${NC}"
+    echo -e "${PURPLE}• User Register:         http://localhost:3005/auth/register${NC}"
+    echo -e "${PURPLE}• User Login:            http://localhost:3005/auth/login${NC}"
+    echo -e "${PURPLE}• User Profile:          http://localhost:3005/auth/profile${NC}"
+    echo -e "${PURPLE}• Token Validation:      http://localhost:3005/auth/validate${NC}"
+    echo -e "${PURPLE}• Change Password:       http://localhost:3005/auth/change-password${NC}"
     echo ""
     echo -e "${BLUE}🏗️      Katmanları:${NC}"
     echo -e "${PURPLE}   📋 Domain Layer:       Entities, Value Objects, Domain Services${NC}"

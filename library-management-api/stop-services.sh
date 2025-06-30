@@ -83,6 +83,7 @@ stop_service() {
 echo -e "${YELLOW}📋 Durdurulacak servisler (        ):${NC}"
 echo -e "${PURPLE}• 🌐 Gateway Service [   ]${NC}"
 echo -e "${PURPLE}• 🤖 Recommendation Service [   ]${NC}"
+echo -e "${PURPLE}• 🔐 Auth Service [   ]${NC}"
 echo -e "${PURPLE}• 📚 Book Service [   ]${NC}"
 echo -e "${PURPLE}• ✍️  Author Service [   ]${NC}"
 echo -e "${PURPLE}• 📖 Genre Service [   ]${NC}"
@@ -106,21 +107,28 @@ else
     failed_services+=("Recommendation Service [   ]")
 fi
 
-# 3. Book Service (   )
+# 3. Auth Service (   )
+if stop_service "auth-service" "   "; then
+    stopped_services+=("Auth Service [   ]")
+else
+    failed_services+=("Auth Service [   ]")
+fi
+
+# 4. Book Service (   )
 if stop_service "book-service" "   "; then
     stopped_services+=("Book Service [   ]")
 else
     failed_services+=("Book Service [   ]")
 fi
 
-# 4. Author Service (   )
+# 5. Author Service (   )
 if stop_service "author-service" "   "; then
     stopped_services+=("Author Service [   ]")
 else
     failed_services+=("Author Service [   ]")
 fi
 
-# 5. Genre Service (   )
+# 6. Genre Service (   )
 if stop_service "genre-service" "   "; then
     stopped_services+=("Genre Service [   ]")
 else

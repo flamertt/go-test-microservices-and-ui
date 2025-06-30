@@ -1,20 +1,5 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  Typography,
-  Button,
-  Paper,
-  Container,
-  Chip,
-  Divider,
-} from '@mui/material';
-import {
-  MenuBook as BookIcon,
-  ArrowBack as ArrowBackIcon,
-  Person as PersonIcon,
-  Category as CategoryIcon,
-  DateRange as DateIcon,
-} from '@mui/icons-material';
 import { useApi } from '../hooks/useApi';
 import type { Book } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';

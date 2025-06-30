@@ -23,6 +23,7 @@ type ServicesConfig struct {
 	AuthorServiceURL        string `json:"author_service_url"`
 	GenreServiceURL         string `json:"genre_service_url"`
 	RecommendationServiceURL string `json:"recommendation_service_url"`
+	AuthServiceURL          string `json:"auth_service_url"`
 }
 
 // LoadConfig konfigürasyonu yükler
@@ -37,6 +38,7 @@ func LoadConfig() *Config {
 			AuthorServiceURL:        getEnv("AUTHOR_SERVICE_URL", "http://localhost:3002"),
 			GenreServiceURL:         getEnv("GENRE_SERVICE_URL", "http://localhost:3003"),
 			RecommendationServiceURL: getEnv("RECOMMENDATION_SERVICE_URL", "http://localhost:3004"),
+			AuthServiceURL:          getEnv("AUTH_SERVICE_URL", "http://localhost:3005"),
 		},
 	}
 }
